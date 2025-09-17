@@ -5,11 +5,11 @@ index 35ac677..ee1e136 100644
 @@ -1,7 +1,7 @@
  import json
  from setuptools import setup, find_packages
- 
+
 -with open('../../package.json', 'r') as f:
 +with open('./package.json', 'r') as f:
      package_info = json.load(f)
- 
+
  setup(
 @@ -9,7 +9,7 @@ setup(
      version=package_info.get('version'),

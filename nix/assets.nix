@@ -1,15 +1,17 @@
 {
+  self,
   stdenv,
   pnpm,
   nodejs,
 }:
 stdenv.mkDerivation rec {
   pname = "millennium-assets";
-  version = "git";
+  inherit (self) version;
 
   src = ../assets;
   pnpmDeps = pnpm.fetchDeps {
-    inherit src version pname;
+    inherit src pname;
+    inherit (self) version;
     hash = "sha256-/H3Np/FjxEdU/TwqPPJlpNti2vfyNqUQ2CNIvzlSemA=";
     fetcherVersion = 2;
   };

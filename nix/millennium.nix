@@ -1,14 +1,16 @@
 {
   pkgsi686Linux,
   replaceVars,
+  self,
+  system,
   cmake,
   ninja,
-  callPackage,
   lib,
+
 }:
 let
-  shims = callPackage ./typescript/shims.nix { };
-  assets = callPackage ./assets.nix { };
+  shims = self.packages.${system}.shims;
+  assets = self.packages.${system}.assets;
   venv = pkgsi686Linux.python311.withPackages (
     py:
     (with py; [
@@ -27,14 +29,14 @@ let
       semver
     ])
     ++ [
-      (callPackage ./python/millennium.nix)
-      (callPackage ./python/core-utils.nix)
+      self.packages.${system}.python.millennium
+      self.packages.${system}.python.core-utils
     ]
   );
 in
 pkgsi686Linux.stdenv.mkDerivation {
   pname = "millennium";
-  version = "git";
+  version = self.version;
 
   src = ../.;
 

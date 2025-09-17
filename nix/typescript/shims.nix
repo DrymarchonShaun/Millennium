@@ -1,4 +1,5 @@
 {
+  self,
   stdenv,
   nodejs,
   pnpm,
@@ -6,11 +7,12 @@
 }:
 stdenv.mkDerivation rec {
   pname = "millennium-sdk";
-  version = "git";
+  inherit (self) version;
 
   src = ../../sdk;
   pnpmDeps = pnpm.fetchDeps {
-    inherit src version pname;
+    inherit (self) version;
+    inherit src pname;
     #TODO: automatic hash update
     hash = "sha256-Je0nigOKUklS+7iE1R0vwIMe+cDeOZccIXQ7nLeD9Ao=";
     fetcherVersion = 2;

@@ -22,6 +22,14 @@
       };
     in
     {
+      version =
+        let
+          base = builtins.replaceStrings [ "# current version of millennium" "v" "\n" ] [ "" "" "" ] (
+            builtins.readFile ./version
+          );
+        in
+        if self ? shortRev then "${base}-${self.shortRev}" else if self ? dirtyShortRev then "${base}-${self.dirtyShortRev}" else "${base}-dirty";
+
       overlays.default = final: prev: {
         inherit system;
         steam-millennium = final.steam.override (prev: {
@@ -38,12 +46,12 @@
 
       packages.${system} = {
         default = self.packages.${system}.millennium;
-        millennium = pkgs.callPackage ./nix/millennium.nix { };
-        shims = pkgs.callPackage ./nix/typescript/shims.nix { };
-        assets = pkgs.callPackage ./nix/assets.nix { };
+        millennium = pkgs.callPackage ./nix/millennium.nix { inherit self; };
+        shims = pkgs.callPackage ./nix/typescript/shims.nix { inherit self; };
+        assets = pkgs.callPackage ./nix/assets.nix { inherit self; };
         python = {
-          millennium = pkgs.callPackage ./nix/python/millennium.nix { };
-          core-utils = pkgs.callPackage ./nix/python/core-utils.nix { };
+          millennium = pkgs.callPackage ./nix/python/millennium.nix { inherit self; };
+          core-utils = pkgs.callPackage ./nix/python/core-utils.nix { inherit self; };
         };
         # basic script to update pnpm hashes in the shims and assets package definitions
         # usage: nix run .#update-pnpm-hashes

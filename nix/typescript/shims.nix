@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "millennium-sdk";
   inherit (self) version;
 
-  src = ../../sdk;
+  src = self + /sdk;
   pnpmDeps = pnpm.fetchDeps {
     inherit (self) version;
     inherit src pname;

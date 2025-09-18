@@ -1,5 +1,6 @@
 {
   pkgsi686Linux,
+  breakpointHook,
   replaceVars,
   self,
   system,
@@ -76,6 +77,7 @@ pkgsi686Linux.stdenv.mkDerivation {
     )
   ];
   nativeBuildInputs = [
+    breakpointHook
     cmake
     ninja
   ];

@@ -3,6 +3,7 @@
   stdenv,
   pnpm,
   nodejs,
+  breakpointHook,
 }:
 stdenv.mkDerivation rec {
   pname = "millennium-assets";
@@ -16,6 +17,7 @@ stdenv.mkDerivation rec {
     fetcherVersion = 2;
   };
   nativeBuildInputs = [
+    breakpointHook
     pnpm.configHook
     nodejs
   ];

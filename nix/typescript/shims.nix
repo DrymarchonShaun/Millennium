@@ -1,4 +1,5 @@
 {
+  breakpointHook,
   self,
   stdenv,
   nodejs,
@@ -6,8 +7,9 @@
   faketty,
 }:
 stdenv.mkDerivation rec {
-  pname = "millennium-sdk";
-  inherit (self) version;
+  pname = "millennium-sdk-fml";
+  # inherit (self) version;
+  version = "fml";
 
   src = ../../sdk;
   pnpmDeps = pnpm.fetchDeps {
@@ -19,6 +21,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
+  breakpointHook
     pnpm.configHook
     nodejs
     faketty

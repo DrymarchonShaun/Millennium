@@ -56,20 +56,15 @@ option(MILLENNIUM_BUILD_TO_STEAM_PATH "Build Millennium to Steam path" ${_build_
 option(MILLENNIUM_NIX_64BIT           "Build only the 64-bit Nix targets (hhx64 + bootstrap64 + pvs64)" OFF)
 
 if(MILLENNIUM_BUILD_MAIN)
-    if(NOT MILLENNIUM_NIX_64BIT)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
-    endif()
-
-    if(NOT DISTRO_NIX OR MILLENNIUM_NIX_64BIT)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/instrumentation/loopback)
-    endif()
 
     if(MILLENNIUM_NIX_64BIT)
         add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/bootstrap/linux)
     endif()
-endif()
 
 if(MILLENNIUM_BUILD_TESTS)
     enable_testing()
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tests)
+endif()
 endif()
